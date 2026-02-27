@@ -1,1 +1,3 @@
 os.img
+boot/stage1/pm_entry.bin
+boot/stage0/boot.bin
