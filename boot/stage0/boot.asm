@@ -8,41 +8,51 @@ start:
     mov es, ax
     mov ss, ax
     mov sp, 0x7C00
-    sti
-
     mov [BOOT_DRIVE], dl
 
-    ; print message
-    mov si, msg
-.print:
-    lodsb
-    or al, al
-    jz load_stage1
-    mov ah, 0x0E
-    int 0x10
-    jmp .print
+    in  al, 0x92
+    or  al, 2
+    out 0x92, al
+    sti
 
-load_stage1:
-    mov bx, 0x8000       ; load address
-    mov dh, 4            ; sectors to read
+    mov si, msg_ok
+    call print16
+
+    xor ax, ax
+    mov es, ax
+    mov bx, 0x8000
+    mov ah, 0x02
+    mov al, 1
+    mov ch, 0
+    mov cl, 2
+    mov dh, 0
     mov dl, [BOOT_DRIVE]
-
-    mov ah, 0x02         ; BIOS read sectors
-    mov al, dh
-    mov ch, 0x00
-    mov cl, 0x02         ; sector 2 (after boot)
-    mov dh, 0x00
     int 0x13
-    jc disk_fail
+    jc  .err
 
     jmp 0x0000:0x8000
 
-disk_fail:
+.err:
+    mov si, msg_err
+    call print16
+.hang:
     cli
     hlt
+    jmp .hang
+
+print16:
+    lodsb
+    or  al, al
+    jz  .done
+    mov ah, 0x0E
+    int 0x10
+    jmp print16
+.done:
+    ret
 
 BOOT_DRIVE db 0
-msg db "Stage0 OK", 0
+msg_ok     db "S0OK", 13, 10, 0
+msg_err    db "S0ERR", 13, 10, 0
 
-times 510 - ($ - $$) db 0
+times 510-($-$$) db 0
 dw 0xAA55
