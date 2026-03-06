@@ -10,3 +10,4 @@ kernel/kernel.bin
 kernel/vga.o
 kernel/idt.o
 kernel/idt_asm.o
+kernel/isr.o
