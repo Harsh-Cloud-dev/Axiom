@@ -12,3 +12,4 @@ kernel/idt.o
 kernel/idt_asm.o
 kernel/isr.o
 kernel/serial.o
+kernel/E820.o
