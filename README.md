@@ -110,7 +110,8 @@ axiom> stress
     total   : 150000
   Round-robin confirmed
 ```
-
+<img src="random_screenshot.png" alt="Screenshot" width="600"><br>
+<img src="opening_window.png" alt="Screenshot" width="600">
 ---
 
 ## Project Structure
