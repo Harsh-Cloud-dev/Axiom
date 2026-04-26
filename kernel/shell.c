@@ -256,7 +256,7 @@ static void cmd_vmmap(int argc, char **argv) {
 
 static void cmd_version(int argc, char **argv) {
     (void)argc; (void)argv;
-    shell_puts("\n  Axiom Kernel v0.1\n", COL_INFO);
+    shell_puts("\n  AxiomX Kernel v0.1\n", COL_INFO);
     shell_puts("  Arch : x86_64 64-bit Long Mode\n",     COL_OUTPUT);
     shell_puts("  Boot : BIOS 4-stage bootloader\n",     COL_OUTPUT);
     shell_puts("  CC   : x86_64-elf-gcc freestanding\n", COL_OUTPUT);

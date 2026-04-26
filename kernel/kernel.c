@@ -35,7 +35,7 @@ static void draw_statusbar(void) {
         "----------------------------------------"
         "----------------------------------------");
     vga_direct_clr(24, bar);
-    vga_direct_str(24,  1, bar, "Axiom v0.1");
+    vga_direct_str(24,  1, bar, "AxiomX v0.1");
     vga_direct_str(24, 30, bar, "Uptime:");
     vga_direct_str(24, 38, clk, "0s");
     vga_direct_str(24, 52, bar, "| 100 Hz");
@@ -46,7 +46,7 @@ void kernel_main(void) {
         /* serial failed — continue without it */
     }
     serial_puts("\n\n===========================================\n");
-    serial_puts("  Axiom  |  x86_64 Kernel\n");
+    serial_puts("  AxiomX  |  x86_64 Kernel\n");
     serial_puts("===========================================\n");
 
     uint8_t base = VGA_COLOR(VGA_WHITE,       VGA_BLUE);
@@ -59,7 +59,7 @@ void kernel_main(void) {
     vga_clear(base);
 
     vga_direct_str( 2, 0, hi,
-        "  Axiom  |  x86_64  |  64-bit Long Mode  |  Kernel v0.1");
+        "  AxiomX  |  x86_64  |  64-bit Long Mode  |  Kernel v0.1");
     vga_direct_str( 3, 0, info,
         "--------------------------------------------------------");
     vga_direct_str( 4, 2, info,

@@ -7,7 +7,7 @@
 #define SHELL_MAX_INPUT   128
 #define SHELL_MAX_ARGS    16
 #define SHELL_MAX_CMDS    32
-#define SHELL_PROMPT      "axiom> "
+#define SHELL_PROMPT      "axiomX> "
 
 /* ── Command handler ─────────────────────────────────────────────────────── */
 typedef void (*shell_cmd_fn)(int argc, char **argv);

@@ -1,13 +1,13 @@
-# Axiom
+# AxiomX-OS
 > A minimal x86_64 kernel written from scratch — bare metal, no shortcuts.
 
-Axiom is a hobby operating system built to understand what actually happens between pressing the power button and running a program. No UEFI hand-holding, no GRUB abstraction — just assembly, C, and a lot of determination.
+AxiomX-OS is a hobby operating system built to understand what actually happens between pressing the power button and running a program. No UEFI hand-holding, no GRUB abstraction — just assembly, C, and a lot of determination.
 
 ---
 
 ## Architecture
 
-Axiom boots through a custom 4-stage bootloader entirely written in x86 assembly before handing off to a 64-bit C kernel.
+AxiomX-OS boots through a custom 4-stage bootloader entirely written in x86 assembly before handing off to a 64-bit C kernel.
 
 ```
 Stage 0  →  Stage 1  →  Stage 2  →  Stage 3  →  Kernel
@@ -37,7 +37,7 @@ Stage 0  →  Stage 1  →  Stage 2  →  Stage 3  →  Kernel
 
 ## Shell Commands
 
-Axiom drops into an interactive shell on boot. Available commands:
+AxiomX-OS drops into an interactive shell on boot. Available commands:
 
 | Command | Description |
 |---|---|
@@ -74,7 +74,7 @@ Axiom drops into an interactive shell on boot. Available commands:
 
 ```
 ===========================================
-  Axiom  |  x86_64 Kernel
+  AxiomX-OS  |  x86_64 Kernel
 ===========================================
 [kernel] IDT loaded
 [e820] Total usable: 0x0000000007f7fc00 bytes
@@ -87,21 +87,21 @@ Axiom drops into an interactive shell on boot. Available commands:
 [kernel] Running.
 -------------------------------------------
 
-axiom> mem
+AxiomX-OS> mem
   Physical Memory:
     Total : 127 MB  (32736 pages)
     Used  : 3 MB  (778 pages)
     Free  : 124 MB  (31958 pages)
   Usage [........................................] 2%
 
-axiom> memtest
+AxiomX-OS> memtest
   Memtest: 8 pages
   Alloc  : PASS
   Pattern 0xaaaaaaaaaaaaaaaa: PASS
   Pattern 0xdeadbeefcafebabe: PASS
   ALL PASSED
 
-axiom> stress
+AxiomX-OS> stress
   Stress: 3 workers (50k iters each)...
   Results:
     worker0 : 50000 iters
@@ -117,7 +117,7 @@ axiom> stress
 ## Project Structure
 
 ```
-axiom/
+AxiomX-OS/
 ├── boot/
 │   ├── stage0/     # MBR bootloader (real mode)
 │   ├── stage1/     # Protected mode entry
@@ -172,7 +172,7 @@ make clean
 
 ## Status
 
-Axiom is a **work in progress**. The core kernel is functional — it boots, manages memory, handles interrupts, schedules tasks, and drops into a shell. There's a lot more to build.
+AxiomX-OS is a **work in progress**. The core kernel is functional — it boots, manages memory, handles interrupts, schedules tasks, and drops into a shell. There's a lot more to build.
 
 **Planned / In Progress:**
 - [ ] Filesystem (FAT32 or custom)
@@ -185,7 +185,7 @@ Axiom is a **work in progress**. The core kernel is functional — it boots, man
 
 ## Why?
 
-Because "how does an OS work?" is one of those questions that deserves a real answer — not a textbook chapter, but actual code running on actual hardware. Axiom is that answer, built one subsystem at a time.
+Because "how does an OS work?" is one of those questions that deserves a real answer — not a textbook chapter, but actual code running on actual hardware. AxiomX-OS is that answer, built one subsystem at a time.
 
 ---
 
