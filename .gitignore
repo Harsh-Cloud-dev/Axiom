@@ -6,3 +6,4 @@
 *.iso
 *.vmdk
 *.bak
+.DS_Store
