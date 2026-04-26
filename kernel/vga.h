@@ -1,6 +1,5 @@
 #ifndef VGA_H
 #define VGA_H
-
 #include "types.h"
 
 #define VGA_BLACK        0x0
@@ -30,5 +29,8 @@ void vga_puts_at(int row, int col, uint8_t color, const char *s);
 void vga_puthex(uint64_t val, uint8_t color);
 void vga_set_cursor(int row, int col);
 void vga_get_cursor(int *row, int *col);
+void vga_scroll_view_up(int lines);
+void vga_scroll_view_down(int lines);
+int  vga_is_scrolled(void);
 
 #endif
