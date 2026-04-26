@@ -1,5 +1,4 @@
 # Axiom
-
 > A minimal x86_64 kernel written from scratch — bare metal, no shortcuts.
 
 Axiom is a hobby operating system built to understand what actually happens between pressing the power button and running a program. No UEFI hand-holding, no GRUB abstraction — just assembly, C, and a lot of determination.
@@ -23,16 +22,94 @@ Stage 0  →  Stage 1  →  Stage 2  →  Stage 3  →  Kernel
 | Subsystem | Description |
 |---|---|
 | **Bootloader** | Custom 4-stage bootloader; transitions from real → protected → long mode |
-| **VGA Driver** | Text-mode VGA output (80×25) |
+| **VGA Driver** | Text-mode VGA output (80×25), full 16-color palette |
 | **Serial Port** | UART serial output for debugging |
 | **Memory Map** | E820 BIOS memory map parsing |
 | **PMM** | Physical Memory Manager using a bitmap allocator |
-| **VMM** | Virtual Memory Manager with paging |
+| **VMM** | Virtual Memory Manager with paging (PML4, 2MB huge pages) |
 | **Heap** | Dynamic kernel heap allocator |
 | **IDT / ISR** | Interrupt Descriptor Table + Interrupt Service Routines |
-| **PIT** | Programmable Interval Timer for system ticks |
-| **Scheduler** | Basic round-robin task scheduler |
-| **Shell** | Minimal interactive kernel shell |
+| **PIT** | Programmable Interval Timer @ 100 Hz |
+| **Scheduler** | Round-robin task scheduler with context switching |
+| **Shell** | Interactive kernel shell with 24 built-in commands |
+
+---
+
+## Shell Commands
+
+Axiom drops into an interactive shell on boot. Available commands:
+
+| Command | Description |
+|---|---|
+| `help` | List all commands |
+| `clear` | Clear the screen |
+| `uptime` | Show uptime and tick count |
+| `mem` | Memory stats and usage bar |
+| `ps` | List processes and states |
+| `lsmem` | E820 memory map table |
+| `memtest` | Alloc / write / verify / free pages |
+| `stress` | Spawn scheduler stress workers |
+| `calc <a> <op> <b>` | Simple arithmetic calculator |
+| `vmmap` | Virtual memory layout |
+| `cpuinfo` | CPU info via CPUID |
+| `hexdump <addr> [lines]` | Hex dump memory at address |
+| `color` | Display VGA 16-color palette |
+| `history` | Command history buffer |
+| `version` | Kernel version and build info |
+| `echo` | Print arguments |
+| `reboot` | Reboot the system |
+| `halt` | Halt the CPU |
+| `virt2phys <addr>` | Translate virtual → physical address (with page walk) |
+| `switchlog` | Log and display context switches |
+| `regs` | Display CPU register state |
+| `stack` | Dump current stack + call frame chain |
+| `trace on\|off` | Live kernel event tracing |
+| `schedviz` | Visual scheduler state + timing |
+
+> TAB = autocomplete, UP/DOWN = history navigation
+
+---
+
+## Sample Output
+
+```
+===========================================
+  Axiom  |  x86_64 Kernel
+===========================================
+[kernel] IDT loaded
+[e820] Total usable: 0x0000000007f7fc00 bytes
+[pmm] Initialised: 32736 total pages, 31967 free pages
+[vmm] PML4 at 0x4000, 128MB identity-mapped
+[heap] Initialised at 0x400000, 16384 bytes
+[pit] Initialised at 100 Hz (divisor=11931)
+[sched] Initialised. Idle PID=0, quantum=10 ticks
+[shell] Initialised with 24 commands
+[kernel] Running.
+-------------------------------------------
+
+axiom> mem
+  Physical Memory:
+    Total : 127 MB  (32736 pages)
+    Used  : 3 MB  (778 pages)
+    Free  : 124 MB  (31958 pages)
+  Usage [........................................] 2%
+
+axiom> memtest
+  Memtest: 8 pages
+  Alloc  : PASS
+  Pattern 0xaaaaaaaaaaaaaaaa: PASS
+  Pattern 0xdeadbeefcafebabe: PASS
+  ALL PASSED
+
+axiom> stress
+  Stress: 3 workers (50k iters each)...
+  Results:
+    worker0 : 50000 iters
+    worker1 : 50000 iters
+    worker2 : 50000 iters
+    total   : 150000
+  Round-robin confirmed
+```
 
 ---
 
@@ -113,4 +190,4 @@ Because "how does an OS work?" is one of those questions that deserves a real an
 
 ## License
 
-[MIT](LICENSE)
+[GNU General Public License v2.0](LICENSE)
